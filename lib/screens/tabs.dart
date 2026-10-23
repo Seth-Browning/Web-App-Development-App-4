@@ -53,7 +53,7 @@ class _TabsScreenState extends State<TabsScreen> {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (ctx) => FiltersScreen()));
     } 
-    
+
   }
 
   @override
