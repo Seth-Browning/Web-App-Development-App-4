@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meals_app/data/dummy_data.dart';
 import 'package:meals_app/models/category.dart';
 import 'package:meals_app/models/meal.dart';
+import 'package:meals_app/providers/filters_provider.dart';
 import 'package:meals_app/screens/meals.dart';
 import 'package:meals_app/widgets/category_grid_item.dart';
 
@@ -54,6 +55,19 @@ class _CategoriesScreenState extends State<CategoriesScreen>
 
   @override
   Widget build(BuildContext context) {
+
+    List<Widget> categoriesWithMeals = [];
+    
+
+    for (final category in availableCategories) {
+      final filteredMeals = widget.availableMeals.where((meal) => meal.categories.contains(category.id)).toList();
+      if (filteredMeals.isNotEmpty) {
+        categoriesWithMeals.add(
+          CategoryGridItem(category: category, onSelectCategory: () {_selectCategory(context, category);},)
+        );
+      }
+    }
+
     return AnimatedBuilder(
       animation: _animationController,
       child: GridView(
@@ -64,15 +78,7 @@ class _CategoriesScreenState extends State<CategoriesScreen>
           crossAxisSpacing: 20,
           mainAxisSpacing: 20,
         ),
-        children: [
-          for (final category in availableCategories)
-            CategoryGridItem(
-              category: category,
-              onSelectCategory: () {
-                _selectCategory(context, category);
-              },
-            ),
-        ],
+        children: categoriesWithMeals,
       ),
       builder: (context, child) => SlideTransition(
         position: Tween(begin: Offset(0, 0.3), end: Offset(0, 0)).animate(
