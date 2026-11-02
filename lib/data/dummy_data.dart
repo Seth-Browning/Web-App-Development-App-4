@@ -57,7 +57,9 @@ const availableCategories = [
   ),
 ];
 
-const dummyMeals = [
+const String placeholderMealImage = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg/1280px-Good_Food_Display_-_NCI_Visuals_Online.jpg?utm_source=en.wikipedia.org&utm_campaign=imageinfo&utm_content=thumbnail';
+
+final dummyMeals = [
   Meal(
     id: 'm1',
     categories: [
