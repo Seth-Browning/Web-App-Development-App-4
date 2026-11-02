@@ -3,6 +3,7 @@ import 'package:meals_app/models/meal.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
+import 'package:meals_app/screens/cooking_mode.dart';
 
 class MealDetailsScreen extends ConsumerWidget {
   const MealDetailsScreen({super.key, required this.meal});
@@ -38,7 +39,10 @@ class MealDetailsScreen extends ConsumerWidget {
               duration: Duration(milliseconds: 600),
               transitionBuilder: (child, animation) {
                 return RotationTransition(
-                  turns: Tween<double>(begin: 0.72, end: 1.0).animate(animation),
+                  turns: Tween<double>(
+                    begin: 0.72,
+                    end: 1.0,
+                  ).animate(animation),
                   child: child,
                 );
               },
@@ -47,6 +51,16 @@ class MealDetailsScreen extends ConsumerWidget {
                 key: ValueKey(isFavorite),
               ),
             ),
+          ),
+          IconButton(
+            icon: Icon(Icons.rice_bowl_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => CookingModeScreen(currentMeal: meal),
+                ),
+              );
+            },
           ),
         ],
       ),
